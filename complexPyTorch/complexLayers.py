@@ -696,7 +696,6 @@ class ComplexLSTM(Module):
                             num_layers=num_layers, bias=bias,
                             batch_first=batch_first, dropout=dropout,
                             bidirectional=bidirectional)
-        print("inner innit done")
     def forward(self, x):
         real, state_real = self._forward_real(x)
         imaginary, state_imag = self._forward_imaginary(x)
@@ -721,11 +720,9 @@ class ComplexLSTM(Module):
         return imaginary, ((h_real, c_real), (h_imag, c_imag))
 
     def _init_state(self, batch_size, num_layers, to_gpu=False):
-        print("num_xlayers = ",num_layers)
         dim_0 = 2 if self.bidirectional else 1
         dim_0 = dim_0 * num_layers
         dims = (dim_0, batch_size, self.hidden_size)
-        print(dims)
         h_real, h_imag, c_real, c_imag = [
             torch.zeros(dims) for i in range(4)]
 
